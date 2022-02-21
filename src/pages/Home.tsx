@@ -1,13 +1,9 @@
-import React from 'react'
+import React from 'react';
 
-interface HomePageProps {
-
-}
+interface HomePageProps {}
 
 const HomePage: React.FC<HomePageProps> = () => {
-    return (
-        <h1>Home page!</h1>
-    )
-}
+  return <h1>Home page!</h1>;
+};
 
 export default HomePage;

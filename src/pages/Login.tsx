@@ -1,13 +1,14 @@
+import { Box, Container, makeStyles } from '@mui/material';
 import React from 'react';
 
-interface LoginPageProps {
-
-}
+interface LoginPageProps {}
 
 const LoginPage: React.FC<LoginPageProps> = () => {
-    return (
-        <h1>Login page!</h1>
-    )
-}
+  return (
+    <Container>
+      <Box></Box>
+    </Container>
+  );
+};
 
-export default LoginPage
+export default LoginPage;
