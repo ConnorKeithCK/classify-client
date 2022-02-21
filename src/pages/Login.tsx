@@ -5,6 +5,10 @@ import logo from '../imgs/ClassifyLogo.png';
 interface LoginPageProps {}
 
 const LoginPage: React.FC<LoginPageProps> = () => {
+  const handleLogin = () => {
+    console.log('logging in');
+  };
+
   return (
     <Container
       sx={{
@@ -13,22 +17,26 @@ const LoginPage: React.FC<LoginPageProps> = () => {
         display: 'flex',
         flexDirection: 'vertical',
         height: 400,
-        width: 400
+        width: 400,
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        textAlign: 'center',
+        top: 75
       }}>
-      <Paper elevation={3} sx={{ width: 50, height: 50, position: 'absolute', left: 10, top: -30 }}>
-        <img src={logo} />
-      </Paper>
       <Box
         sx={{
           border: '1px solid black',
           boxShadow: '5px 5px 5px black',
           justifyContent: 'space-between'
         }}>
-        <Typography variant="h5">Login to Classify</Typography>
+        <Typography sx={{ fontFamily: 'cursive ' }} variant="h4">
+          Classify
+        </Typography>
         <Box sx={{ padding: 5 }}>
           <TextField sx={{ mt: 5 }} variant="outlined" label="E-Mail Address" />
           <TextField sx={{ mt: 5 }} variant="outlined" label="Password" />
-          <Button sx={{ mt: 5 }} variant="contained">
+          <Button sx={{ mt: 5 }} variant="contained" onClick={handleLogin}>
             Login
           </Button>
         </Box>
