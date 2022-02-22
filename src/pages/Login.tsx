@@ -1,13 +1,12 @@
 import { Box, Container, Typography, TextField, Paper, Button } from '@mui/material';
 import React from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 import logo from '../imgs/ClassifyLogo.png';
 
 interface LoginPageProps {}
 
 const LoginPage: React.FC<LoginPageProps> = () => {
-  const handleLogin = () => {
-    console.log('logging in');
-  };
+  const navigate = useNavigate();
 
   return (
     <Container
@@ -36,7 +35,7 @@ const LoginPage: React.FC<LoginPageProps> = () => {
         <Box sx={{ padding: 5 }}>
           <TextField sx={{ mt: 5 }} variant="outlined" label="E-Mail Address" />
           <TextField sx={{ mt: 5 }} variant="outlined" label="Password" />
-          <Button sx={{ mt: 5 }} variant="contained" onClick={handleLogin}>
+          <Button sx={{ mt: 5 }} variant="contained" onClick={() => navigate('/home')}>
             Login
           </Button>
         </Box>
