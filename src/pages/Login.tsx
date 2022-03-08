@@ -13,26 +13,32 @@ const LoginPage: React.FC<LoginPageProps> = () => {
       sx={{
         ml: 'auto',
         mr: 'auto',
-        display: 'flex',
-        flexDirection: 'vertical',
         height: 400,
         width: 400,
         position: 'absolute',
         left: 0,
         right: 0,
-        textAlign: 'center',
         top: 75
       }}>
       <Box
         sx={{
           border: '1px solid black',
           boxShadow: '5px 5px 5px black',
-          justifyContent: 'space-between'
+          justifyContent: 'space-between',
+          display: 'flex',
+          flexDirection: 'column'
         }}>
-        <Typography sx={{ fontFamily: 'cursive ' }} variant="h4">
+        <Typography sx={{ fontFamily: 'cursive ', flex: 1 }} variant="h4">
           Classify
         </Typography>
-        <Box sx={{ padding: 5 }}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '60%',
+            margin: 'auto',
+            height: '60%'
+          }}>
           <TextField sx={{ mt: 5 }} variant="outlined" label="E-Mail Address" />
           <TextField sx={{ mt: 5 }} variant="outlined" label="Password" />
           <Button sx={{ mt: 5 }} variant="contained" onClick={() => navigate('/home')}>
