@@ -1,4 +1,5 @@
 import React from 'react';
+<<<<<<< HEAD
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
 interface IDocumentsProps {}
@@ -48,3 +49,5 @@ const DocumentsPage: React.FC<IDocumentsProps> = () => {
 };
 
 export default DocumentsPage;
+=======
+>>>>>>> 49cfaed63ac33fc80f8d80ee1c0d460b1577ff3f
