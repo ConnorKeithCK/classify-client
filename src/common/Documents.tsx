@@ -1,53 +1,66 @@
 import React from 'react';
-<<<<<<< HEAD
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { DownloadButton } from './DownloadButton';
+import { ViewButtonIcon } from './ViewButton';
+import { MoreButton } from './MoreButton';
 
 interface IDocumentsProps {}
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 90 },
   {
-    field: 'firstName',
-    headerName: 'First name',
-    width: 150,
-    editable: true
+    field: 'title',
+    headerName: 'Document Title',
+    minWidth: 350,
   },
   {
-    field: 'lastName',
-    headerName: 'Last name',
-    width: 150,
-    editable: true
+    field: 'agency',
+    headerName: 'Agency',
+    minWidth: 200,
   },
   {
-    field: 'age',
-    headerName: 'Age',
-    type: 'number',
-    width: 110,
-    editable: true
-  }
+    field: 'clearance',
+    headerName: 'Clearance Level',
+    minWidth: 200,
+  },
+  {
+    field: 'date',
+    headerName: 'Uploaded',
+    minWidth: 110,
+  },
+  {
+    field: 'buttons',
+    headerName: ' ',
+    minWidth: 150,
+    flex: 1,
+    sortable: false,
+    renderCell: () => {
+      return (
+        <div style={{ padding: 5, textAlign: 'right' }}>
+          <DownloadButton
+            onClick={() => console.log('clicked')}
+          ></DownloadButton>
+          <ViewButtonIcon onClick={() => console.log('clicked')}></ViewButtonIcon>
+          <MoreButton onClick={() => console.log('clicked')}></MoreButton>
+        </div>
+      );
+    },
+  },
 ];
 
 const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 }
+  { id: 1, title: 'Report 1', agency: 'FBI', clearance: "SECRET", date: "Today" },
 ];
 
-const DocumentsPage: React.FC<IDocumentsProps> = () => {
+const DocumentsTable: React.FC<IDocumentsProps> = () => {
   return (
     // need to set fixed height here to have it display, or set autoHeight to true
     <div>
-      <DataGrid autoHeight rows={rows} columns={columns}></DataGrid>
+      <DataGrid autoHeight rows={rows} columns={columns} columnVisibilityModel={{
+        id: false
+      }} rowHeight={80}></DataGrid>
     </div>
   );
 };
 
-export default DocumentsPage;
-=======
->>>>>>> 49cfaed63ac33fc80f8d80ee1c0d460b1577ff3f
+export default DocumentsTable;

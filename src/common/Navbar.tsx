@@ -114,6 +114,7 @@ const Navbar: React.FC<INavbarProps> = () => {
     <Box sx={{ flexGrow: 1 }}>
       {location.pathname !== '/' && (
         <AppBar position="static">
+          <Box sx={{width: '100%', height: 25, backgroundColor: 'green'}}><Typography variant="subtitle2" sx={{fontWeight: 'bold'}}>You have an active <span style={{ color: 'black', fontWeight: 'bolder'}}>SECRET</span> clearance</Typography></Box>
           <Toolbar>
             {/* <IconButton
               size="large"
@@ -170,6 +171,7 @@ const Navbar: React.FC<INavbarProps> = () => {
       {renderMobileMenu}
       {renderMenu}
     </Box>
+    
   );
 };
 
