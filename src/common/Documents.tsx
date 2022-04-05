@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { DownloadButton } from './DownloadButton';
 import { ViewButtonIcon } from './ViewButton';
@@ -7,7 +7,7 @@ import { MoreButton } from './MoreButton';
 interface IDocumentsProps {}
 
 const columns: GridColDef[] = [
-  { field: 'id', headerName: 'ID', width: 90 },
+  { field: 'id', headerName: 'ID', width: 90, },
   {
     field: 'title',
     headerName: 'Document Title',
@@ -19,12 +19,12 @@ const columns: GridColDef[] = [
     minWidth: 200,
   },
   {
-    field: 'clearance',
+    field: 'accessLevel',
     headerName: 'Clearance Level',
     minWidth: 200,
   },
   {
-    field: 'date',
+    field: 'createdAt',
     headerName: 'Uploaded',
     minWidth: 110,
   },
@@ -36,29 +36,45 @@ const columns: GridColDef[] = [
     sortable: false,
     renderCell: () => {
       return (
-        <div style={{ padding: 5, textAlign: 'right' }}>
-          <DownloadButton
-            onClick={() => console.log('clicked')}
-          ></DownloadButton>
+        <div style={{ padding: 50, textAlign: 'right' }}>
           <ViewButtonIcon onClick={() => console.log('clicked')}></ViewButtonIcon>
-          <MoreButton onClick={() => console.log('clicked')}></MoreButton>
         </div>
       );
     },
   },
 ];
 
-const rows = [
-  { id: 1, title: 'Report 1', agency: 'FBI', clearance: "SECRET", date: "Today" },
-];
-
 const DocumentsTable: React.FC<IDocumentsProps> = () => {
+
+  const [classifyDocuments, setClassifyDocuments] = useState([])
+
+  const getDocuments = async () => {
+      fetch("http://localhost:8080/documents")
+      .then(res => res.json())
+      .then((result) => {
+        setClassifyDocuments(result)
+      },
+      (error) => {
+        console.log(error)
+      })
+  }
+
+  useEffect(() => {
+   getDocuments();
+  }, [])
+
   return (
     // need to set fixed height here to have it display, or set autoHeight to true
     <div>
-      <DataGrid autoHeight rows={rows} columns={columns} columnVisibilityModel={{
-        id: false
-      }} rowHeight={80}></DataGrid>
+      {classifyDocuments.length > 0 && (
+        <DataGrid autoHeight
+        rows={classifyDocuments} 
+        columns={columns} 
+        columnVisibilityModel={{id: false}} 
+        rowHeight={80}
+        getRowId={(row) => row._id}
+        ></DataGrid>
+      )}
     </div>
   );
 };
