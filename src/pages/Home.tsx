@@ -1,5 +1,5 @@
 import { AddCircle } from '@mui/icons-material';
-import { Button, Container, IconButton, Tooltip, Typography } from '@mui/material';
+import { Button, Container, IconButton, Select, Tooltip, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import DocumentsTable from '../common/Documents';
 import { UploadDocumentModal } from '../common/UploadDocumentModal';

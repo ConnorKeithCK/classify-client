@@ -34,15 +34,23 @@ export const UploadDocumentModal: React.FC<IUploadDocumentProps> = ({
       e.preventDefault();
       setIsUploading(true);
       const formData = new FormData();
-      acceptedFiles.forEach((file: any) => {
-        formData.append("files", file);
-      });
+      formData.append("file", acceptedFiles[0], acceptedFiles[0].name)
 
-      axios
-        .post("http://localhost:8080/documents", { body: formData })
-        .then((response) => {
-          console.log(response);
-        });
+      console.log(formData)
+      try {
+        const response = await fetch("http://localhost:8080/documents", {
+          method: 'POST',
+          body: formData,
+        })
+
+        if (!response.ok) {
+          throw new Error(response.statusText)
+        }
+        console.log(response)
+      } catch (e) {
+        console.log(e)
+      }
+
 
       clearFiles();
       setIsUploading(false);
