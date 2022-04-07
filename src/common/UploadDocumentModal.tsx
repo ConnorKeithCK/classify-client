@@ -65,11 +65,11 @@ export const UploadDocumentModal: React.FC<IUploadDocumentProps> = ({
   };
 
   return (
-    <Dialog open={true}>
+    <Dialog open={true} sx={{ height: '80%'}}>
       <Paper elevation={3}>
         <DialogTitle>Upload a new document</DialogTitle>
         <Divider />
-        <DialogContent>
+        <DialogContent sx={{ display: 'flex', flexDirection: 'column'}}>
           {acceptedFiles.length == 0 && (
             <Box
               {...getRootProps({
@@ -86,10 +86,7 @@ export const UploadDocumentModal: React.FC<IUploadDocumentProps> = ({
               })}
             >
               <input {...getInputProps()} />
-              <Typography style={{ fontWeight: "bold" }} variant={"h4"}>
-                Upload a document
-              </Typography>
-              <Typography sx={{ marginTop: 10 }}>
+              <Typography>
                 Drag and drop your .pdf file here to upload it to the selected
                 folder.
               </Typography>
@@ -98,9 +95,8 @@ export const UploadDocumentModal: React.FC<IUploadDocumentProps> = ({
                   backgroundColor: "white",
                   textTransform: "inherit",
                   height: 30,
-                  marginTop: 15,
-                  marginBottom: 15,
-                  marginLeft: 10,
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
                   width: 150,
                   fontWeight: "bold",
                   padding: 2,
@@ -127,7 +123,6 @@ export const UploadDocumentModal: React.FC<IUploadDocumentProps> = ({
                 textTransform: "inherit",
                 height: 30,
                 marginTop: 15,
-                marginBottom: 15,
                 marginLeft: 10,
                 width: 150,
                 fontWeight: "bold",
@@ -147,7 +142,6 @@ export const UploadDocumentModal: React.FC<IUploadDocumentProps> = ({
                 textTransform: "inherit",
                 height: 30,
                 marginTop: 15,
-                marginBottom: 15,
                 marginLeft: 10,
                 width: 150,
                 fontWeight: "bold",
