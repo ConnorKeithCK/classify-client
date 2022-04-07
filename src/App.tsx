@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import DocumentsPage from './common/Documents';
@@ -6,6 +7,11 @@ import HomePage from './pages/Home';
 import LoginPage from './pages/Login';
 
 function App() {
+
+  useEffect(() => {
+    document.title = 'Classify'
+  })
+
   return (
     <div className="App">
       <Navbar />
