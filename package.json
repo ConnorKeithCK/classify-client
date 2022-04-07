@@ -45,6 +45,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-pdf": "^5.0.9",
     "prettier": "^2.5.1"
   }
 }

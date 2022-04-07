@@ -4,7 +4,9 @@ import { DownloadButton } from './DownloadButton';
 import { ViewButtonIcon } from './ViewButton';
 import { MoreButton } from './MoreButton';
 
-interface IDocumentsProps {}
+interface IDocumentsProps {
+  handleFilePreview: any;
+}
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 90, },
@@ -44,7 +46,7 @@ const columns: GridColDef[] = [
   },
 ];
 
-const DocumentsTable: React.FC<IDocumentsProps> = () => {
+const DocumentsTable: React.FC<IDocumentsProps> = ({ handleFilePreview }) => {
 
   const [classifyDocuments, setClassifyDocuments] = useState([])
 
@@ -72,8 +74,10 @@ const DocumentsTable: React.FC<IDocumentsProps> = () => {
         columns={columns} 
         columnVisibilityModel={{id: false}} 
         rowHeight={80}
+        onRowClick={(e) => handleFilePreview(e)}
         getRowId={(row) => row._id}
-        ></DataGrid>
+        disableSelectionOnClick={true}
+        />
       )}
     </div>
   );
