@@ -18,31 +18,19 @@ const columns: GridColDef[] = [
   {
     field: 'agency',
     headerName: 'Agency',
-    minWidth: 200,
+    minWidth: 120,
   },
   {
     field: 'accessLevel',
-    headerName: 'Clearance Level',
-    minWidth: 200,
-  },
-  {
-    field: 'createdAt',
-    headerName: 'Uploaded',
+    headerName: 'Clearance',
     minWidth: 110,
   },
   {
-    field: 'buttons',
-    headerName: ' ',
+    field: 'btcHash',
+    headerName: 'Transaction ID',
     minWidth: 150,
     flex: 1,
     sortable: false,
-    renderCell: () => {
-      return (
-        <div style={{ padding: 50, textAlign: 'right' }}>
-          <ViewButtonIcon onClick={() => console.log('clicked')}></ViewButtonIcon>
-        </div>
-      );
-    },
   },
 ];
 

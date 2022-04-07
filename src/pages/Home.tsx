@@ -1,11 +1,12 @@
 import { AddCircle } from '@mui/icons-material';
 import { Button, Container, Dialog, DialogContent, DialogTitle, Divider, FormControl, IconButton, InputLabel, MenuItem, Paper, Select, Tooltip, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../App.css';
 import DocumentsTable from '../common/Documents';
 import { Document, Page, pdfjs } from 'react-pdf'
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 import { UploadDocumentModal } from '../common/UploadDocumentModal';
+import ReactJson from 'react-json-view';
 
 interface HomePageProps {}
 
@@ -14,6 +15,8 @@ const HomePage: React.FC<HomePageProps> = () => {
   const [previewUrl, setPreviewUrl] = useState("")
   const [numPages, setNumPages] = useState(null);
   const [filePreviewModal, setFilePreviewModal] = useState(false)
+  const [transactionData, setTransactionData] = useState()
+  const [transactionDataModal, setTransactionDataModal] = useState(false)
 
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages)
@@ -21,6 +24,11 @@ const HomePage: React.FC<HomePageProps> = () => {
 
   const handleDocumentClick = (e: any) => {
     getPreviewUrl(e.row.cloudPath)
+    getTransaction(e.row.btcHash)
+  }
+
+  const refreshPage = () => {
+    setUploadDocumentModal(false)
   }
 
   const getPreviewUrl = async (filePath) => {
@@ -34,6 +42,18 @@ const HomePage: React.FC<HomePageProps> = () => {
       console.log(error)
     })
 }
+
+  const getTransaction = async (hash) => {
+    fetch(`http://localhost:8080/documents/transaction?transaction=${encodeURIComponent(hash)}`)
+    .then(res => res.json())
+    .then((result) => {
+      console.log(result)
+      setTransactionData(result.transaction)
+    },
+    (error) => {
+      console.log(error)
+    })
+  }
 
   return (
     <Container sx={{width: '90%', height: '100%', display: 'block'}}>
@@ -50,10 +70,13 @@ const HomePage: React.FC<HomePageProps> = () => {
           <DocumentsTable handleFilePreview={(e: any) => handleDocumentClick(e)} />
           </div>
             {previewUrl != "" && (
-            <Dialog maxWidth={false} open={filePreviewModal} sx={{ width: '90%', marginLeft: 'auto', marginRight: 'auto', '& .MuiPaper-root': {
+            <Dialog maxWidth={false} open={filePreviewModal} sx={{ width: '60%', marginLeft: 'auto', marginRight: 'auto', '& .MuiPaper-root': {
               width: '80%'
             }}} >
-              <DialogTitle>File Preview</DialogTitle>
+              <DialogTitle>File Preview 
+                <Button sx={{ float: 'right'}} onClick={() => setFilePreviewModal(false)}>Close</Button>
+                <Button sx={{ float: 'right'}} onClick={() => setTransactionDataModal(true)}>View transaction data</Button>
+              </DialogTitle>
               <Divider />
               <DialogContent
               sx={{ display: 'flex', flexDirection: 'row !important', width: '100%', marginLeft: 'auto', marginRight: 'auto', justifyContent: 'center'}}>
@@ -65,34 +88,20 @@ const HomePage: React.FC<HomePageProps> = () => {
                         </Page>
                     ))}
                   </Document>
-                  <Divider orientation="vertical" />
-                  <div style={{ flex: 2 }}>
-                    <Typography variant="h5">Blockchain information</Typography>
-                    <div style={{ float: "right", padding: 2 }}>
-                      <Button
-                        onClick={() => setFilePreviewModal(false)}
-                        sx={{
-                          backgroundColor: "white",
-                          textTransform: "inherit",
-                          height: 30,
-                          marginTop: 15,
-                          marginBottom: 15,
-                          marginLeft: 10,
-                          width: 150,
-                          fontWeight: "bold",
-                          padding: 2,
-                          fontSize: 14,
-                          color: "#1976d2",
-                          border: "1px solid #cfcdf9",
-                        }}
-                        variant="outlined"
-                      >
-                        Close
-                      </Button>
-                    </div>
-                  </div>
               </DialogContent>
             </Dialog>)}
+            {transactionDataModal && (
+              <Dialog open={transactionDataModal} maxWidth={false}>
+                <DialogTitle>Transaction Data
+                   <Button sx={{ float: 'right'}} onClick={() => setTransactionDataModal(false)}>Close</Button>
+                </DialogTitle>
+                <DialogContent>
+                  <ReactJson style={{ width: '40%', height: '60%'}} src={transactionData}/>
+                    <div style={{ float: "right", padding: 2 }}>
+                    </div>
+                </DialogContent>
+              </Dialog>
+            )}
         </div>
       <Container sx={{position: 'fixed', left: 600, bottom: 30}}>
         <Tooltip title={<h1 style={{ fontSize: 14}}>Upload a new document</h1>} placement='top' arrow>
@@ -104,7 +113,7 @@ const HomePage: React.FC<HomePageProps> = () => {
         </Tooltip>
       </Container>
 
-      {uploadDocumentModal && (<UploadDocumentModal handleClose={() => setUploadDocumentModal(false)}></UploadDocumentModal>)}
+      {uploadDocumentModal && (<UploadDocumentModal handleClose={refreshPage}></UploadDocumentModal>)}
 
 
     </Container>
